@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AntecipationApi.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20180723223435_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180724003941_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,18 +27,18 @@ namespace AntecipationApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndDateAnalysis");
+                    b.Property<DateTime?>("EndDateAnalysis");
 
                     b.Property<DateTime>("RequestDate");
 
-                    b.Property<bool>("Result");
+                    b.Property<bool?>("Result");
 
-                    b.Property<DateTime>("StartDateAnalysis");
+                    b.Property<DateTime?>("StartDateAnalysis");
 
-                    b.Property<decimal>("TotalValueTransactions")
+                    b.Property<decimal?>("TotalValueTransactions")
                         .HasColumnType("decimal(9, 2)");
 
-                    b.Property<decimal>("TotalValueTransfer")
+                    b.Property<decimal?>("TotalValueTransfer")
                         .HasColumnType("decimal(9, 2)");
 
                     b.HasKey("SolicitationId");
@@ -52,20 +52,20 @@ namespace AntecipationApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("AcquirerConfirmation");
+                    b.Property<bool?>("AcquirerConfirmation");
 
-                    b.Property<DateTime>("DateTransfer");
+                    b.Property<DateTime?>("DateTransfer");
 
-                    b.Property<int>("ParcelNumber");
+                    b.Property<int?>("ParcelNumber");
 
-                    b.Property<long>("SolicitationId");
+                    b.Property<long?>("SolicitationId");
 
-                    b.Property<decimal>("TransactionValue")
+                    b.Property<decimal?>("TransactionValue")
                         .HasColumnType("decimal(9, 2)");
 
                     b.Property<DateTime>("TransctionDate");
 
-                    b.Property<decimal>("ValueTransfer")
+                    b.Property<decimal?>("ValueTransfer")
                         .HasColumnType("decimal(9, 2)");
 
                     b.HasKey("TransactionId");
@@ -79,8 +79,7 @@ namespace AntecipationApi.Migrations
                 {
                     b.HasOne("AntecipationApi.Models.Solicitation", "Solicitation")
                         .WithMany("Transactions")
-                        .HasForeignKey("SolicitationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SolicitationId");
                 });
 #pragma warning restore 612, 618
         }

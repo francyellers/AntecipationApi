@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AntecipationApi.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,11 +15,11 @@ namespace AntecipationApi.Migrations
                     SolicitationId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RequestDate = table.Column<DateTime>(nullable: false),
-                    StartDateAnalysis = table.Column<DateTime>(nullable: false),
-                    EndDateAnalysis = table.Column<DateTime>(nullable: false),
-                    Result = table.Column<bool>(nullable: false),
-                    TotalValueTransactions = table.Column<decimal>(type: "decimal(9, 2)", nullable: false),
-                    TotalValueTransfer = table.Column<decimal>(type: "decimal(9, 2)", nullable: false)
+                    StartDateAnalysis = table.Column<DateTime>(nullable: true),
+                    EndDateAnalysis = table.Column<DateTime>(nullable: true),
+                    Result = table.Column<bool>(nullable: true),
+                    TotalValueTransactions = table.Column<decimal>(type: "decimal(9, 2)", nullable: true),
+                    TotalValueTransfer = table.Column<decimal>(type: "decimal(9, 2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,12 +33,12 @@ namespace AntecipationApi.Migrations
                     TransactionId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TransctionDate = table.Column<DateTime>(nullable: false),
-                    DateTransfer = table.Column<DateTime>(nullable: false),
-                    AcquirerConfirmation = table.Column<bool>(nullable: false),
-                    TransactionValue = table.Column<decimal>(type: "decimal(9, 2)", nullable: false),
-                    ValueTransfer = table.Column<decimal>(type: "decimal(9, 2)", nullable: false),
-                    ParcelNumber = table.Column<int>(nullable: false),
-                    SolicitationId = table.Column<long>(nullable: false)
+                    DateTransfer = table.Column<DateTime>(nullable: true),
+                    AcquirerConfirmation = table.Column<bool>(nullable: true),
+                    TransactionValue = table.Column<decimal>(type: "decimal(9, 2)", nullable: true),
+                    ValueTransfer = table.Column<decimal>(type: "decimal(9, 2)", nullable: true),
+                    ParcelNumber = table.Column<int>(nullable: true),
+                    SolicitationId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,7 +48,7 @@ namespace AntecipationApi.Migrations
                         column: x => x.SolicitationId,
                         principalTable: "Solicitations",
                         principalColumn: "SolicitationId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

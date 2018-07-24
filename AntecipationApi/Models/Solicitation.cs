@@ -12,8 +12,8 @@ namespace AntecipationApi.Models
         public DateTime? StartDateAnalysis { get; set; }
         public DateTime? EndDateAnalysis { get; set; }
         public bool? Result { get; set; }
-        public decimal TotalValueTransactions { get; set; }
-        public decimal TotalValueTransfer { get; set; }
+        public decimal? TotalValueTransactions { get; set; }
+        public decimal? TotalValueTransfer { get; set; }
 
         public List<Transaction> Transactions { get; set; }
     }

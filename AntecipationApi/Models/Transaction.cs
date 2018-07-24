@@ -11,8 +11,8 @@ namespace AntecipationApi.Models
         public DateTime TransctionDate { get; set; }
         public DateTime? DateTransfer { get; set; }
         public bool? AcquirerConfirmation { get; set; }
-        public decimal TransactionValue { get; set; }
-        public decimal ValueTransfer { get; set; }
+        public decimal? TransactionValue { get; set; }
+        public decimal? ValueTransfer { get; set; }
         public int? ParcelNumber { get; set; }
 
         public long? SolicitationId { get; set; }
