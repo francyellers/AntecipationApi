@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AntecipationApi.Models;
+using AntecipationApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AntecipationApi.Controllers
@@ -10,11 +12,25 @@ namespace AntecipationApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ITransactionService _transactionService;
+
+        public ValuesController(ITransactionService transactionService)
+        {
+            _transactionService = transactionService;
+        }
+
         // GET api/values
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
+        }*/
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_transactionService.GetAll());
+            // (new string[] { "value1", "value2" });
         }
 
         // GET api/values/5
