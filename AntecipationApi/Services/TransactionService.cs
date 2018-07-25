@@ -27,7 +27,27 @@ namespace AntecipationApi.Services
 
         public IEnumerable<Transaction> GetAll()
         {
-            return _context.Transactions.ToList();
+            List<Transaction> listTrans = new List<Transaction>();
+
+            var availableTrans = _context.Transactions.Where(t => t.SolicitationId == null);
+
+            Parallel.ForEach(availableTrans, x =>
+            {
+                Transaction t = new Transaction();
+                t.TransctionDate = x.TransctionDate;
+                t.DateTransfer = x.DateTransfer;
+                t.AcquirerConfirmation = x.AcquirerConfirmation;
+                t.TransactionValue = x.TransactionValue;
+                if (x.ParcelNumber > 1)
+                    t.ValueTransfer = ((x.ParcelNumber * 0.038M ) * x.TransactionValue) + 0.90M;
+                t.ParcelNumber = x.ParcelNumber;
+                t.SolicitationId = x.SolicitationId;
+
+                listTrans.Add(t);
+
+            });
+
+            return listTrans;
         }
 
         public void Remove(long id)
