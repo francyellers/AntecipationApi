@@ -39,7 +39,7 @@ namespace AntecipationApi.Services
                 t.AcquirerConfirmation = x.AcquirerConfirmation;
                 t.TransactionValue = x.TransactionValue;
                 if (x.ParcelNumber > 1)
-                    t.ValueTransfer = ((x.ParcelNumber * 0.038M ) * x.TransactionValue) + 0.90M;
+                    t.ValueTransfer = (x.TransactionValue - 0.90M)-(x.ParcelNumber * 3.8M );
                 t.ParcelNumber = x.ParcelNumber;
                 t.SolicitationId = x.SolicitationId;
 

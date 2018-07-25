@@ -10,11 +10,11 @@ namespace AntecipationApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TransactionsController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
 
-        public ValuesController(ITransactionService transactionService)
+        public TransactionsController(ITransactionService transactionService)
         {
             _transactionService = transactionService;
         }
@@ -42,8 +42,14 @@ namespace AntecipationApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public string Post([FromBody] int[] id)
         {
+            string x = "";
+            for (int i = 0; i < id.Length; i++)
+            {
+                x = x + " - " + id[i] + " - " + id.Length;
+            }
+            return x;
         }
 
         // PUT api/values/5
