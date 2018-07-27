@@ -29,7 +29,8 @@ namespace AntecipationApi.Services
         {
             List<Transaction> listTrans = new List<Transaction>();
 
-            var availableTrans = _context.Transactions.Where(t => t.SolicitationId == null);
+           
+            var availableTrans = _context.Transactions.Where(t => t.SolicitationId == null && t.AcquirerConfirmation == true);
 
             Parallel.ForEach(availableTrans, x =>
             {
@@ -39,7 +40,7 @@ namespace AntecipationApi.Services
                 t.AcquirerConfirmation = x.AcquirerConfirmation;
                 t.TransactionValue = x.TransactionValue;
                 if (x.ParcelNumber > 1)
-                    t.ValueTransfer = (x.TransactionValue - 0.90M)-(x.ParcelNumber * 3.8M );
+                    t.ValueTransfer = (x.TransactionValue - 0.90M) - (x.ParcelNumber * 3.8M);
                 t.ParcelNumber = x.ParcelNumber;
                 t.SolicitationId = x.SolicitationId;
 
@@ -48,6 +49,7 @@ namespace AntecipationApi.Services
             });
 
             return listTrans;
+            
         }
 
         public void Remove(long id)
@@ -55,9 +57,28 @@ namespace AntecipationApi.Services
             throw new NotImplementedException();
         }
 
-        public void Update(long id)
+        public void Update(long[] ids)
         {
-            throw new NotImplementedException();
+            //List<Transaction> listTrans = new List<Transaction>();
+        
+            
+                
+            Parallel.For(0, ids.Length, i =>
+            {
+                var solicitation = _context.Solicitations.Where(s => s.Result == null).First();
+                _context.Transactions.Where(t => ids[i] == (t.SolicitationId)).ToList()
+                .ForEach(t => t.SolicitationId = solicitation.SolicitationId);
+                _context.SaveChanges();
+                /*Transaction t = new Transaction();
+                t.TransctionDate =*/
+            });
+            /*
+            string x = "";
+            for (int i = 0; i < id.Length; i++)
+            {
+                x = x + " - " + id[i];
+            }
+            */
         }
     }
 }
