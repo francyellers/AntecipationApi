@@ -29,7 +29,7 @@ namespace AntecipationApi.Services
         {
             List<Transaction> listTrans = new List<Transaction>();
 
-           
+
             var availableTrans = _context.Transactions.Where(t => t.SolicitationId == null && t.AcquirerConfirmation == true);
 
             Parallel.ForEach(availableTrans, x =>
@@ -49,7 +49,7 @@ namespace AntecipationApi.Services
             });
 
             return listTrans;
-            
+
         }
 
         public void Remove(long id)
@@ -60,14 +60,15 @@ namespace AntecipationApi.Services
         public void Update(long[] ids)
         {
             //List<Transaction> listTrans = new List<Transaction>();
-        
-            
-                
+
+            Console.WriteLine(" METODO - " + ids.Length.ToString());
+
             Parallel.For(0, ids.Length, i =>
             {
                 var solicitation = _context.Solicitations.Where(s => s.Result == null).First();
                 _context.Transactions.Where(t => ids[i] == (t.SolicitationId)).ToList()
                 .ForEach(t => t.SolicitationId = solicitation.SolicitationId);
+                Console.WriteLine(" Id - " + ids[i]);
                 _context.SaveChanges();
                 /*Transaction t = new Transaction();
                 t.TransctionDate =*/
@@ -79,6 +80,18 @@ namespace AntecipationApi.Services
                 x = x + " - " + id[i];
             }
             */
+        }
+
+        public void Update(long id)
+        {
+            Console.WriteLine(" METODO - " + id);
+
+
+            var solicitation = _context.Solicitations.Where(s => s.Result == null).First();
+            _context.Transactions.Where(t => t.TransactionId == id).ToList()
+            .ForEach(t => t.SolicitationId = solicitation.SolicitationId);
+            Console.WriteLine(" Id - " + solicitation.SolicitationId);
+            _context.SaveChanges();
         }
     }
 }

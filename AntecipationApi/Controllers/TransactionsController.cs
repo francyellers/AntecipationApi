@@ -56,10 +56,14 @@ namespace AntecipationApi.Controllers
         */
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put([FromBody] long[] id)
+        public IActionResult Put(long id, [FromBody] Transaction t)
         {
-            //var t = JsonConvert.DeserializeObject<dynamic>(id[0].ToString());
+            Console.WriteLine(" - ");
+            //var x = JsonConvert.DeserializeObject<dynamic>(id.ToString());
+            Console.WriteLine(" - " + id + t.TransactionId);
+
             _transactionService.Update(id);
+            return NoContent();
         }
 
         // DELETE api/values/5
