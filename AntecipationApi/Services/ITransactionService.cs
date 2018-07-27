@@ -16,7 +16,7 @@ namespace AntecipationApi.Services
 
         void Remove(long id);
 
-        void Update(long[] ids);
+        //void Update(long[] ids);
 
         void Update(long id);
     }

@@ -57,7 +57,7 @@ namespace AntecipationApi.Services
             throw new NotImplementedException();
         }
 
-        public void Update(long[] ids)
+        /*public void Update(long[] ids)
         {
             //List<Transaction> listTrans = new List<Transaction>();
 
@@ -70,8 +70,8 @@ namespace AntecipationApi.Services
                 .ForEach(t => t.SolicitationId = solicitation.SolicitationId);
                 Console.WriteLine(" Id - " + ids[i]);
                 _context.SaveChanges();
-                /*Transaction t = new Transaction();
-                t.TransctionDate =*/
+                Transaction t = new Transaction();
+                t.TransctionDate =
             });
             /*
             string x = "";
@@ -79,18 +79,15 @@ namespace AntecipationApi.Services
             {
                 x = x + " - " + id[i];
             }
-            */
-        }
+            
+        }*/
 
         public void Update(long id)
         {
-            Console.WriteLine(" METODO - " + id);
-
-
             var solicitation = _context.Solicitations.Where(s => s.Result == null).First();
             _context.Transactions.Where(t => t.TransactionId == id).ToList()
             .ForEach(t => t.SolicitationId = solicitation.SolicitationId);
-            Console.WriteLine(" Id - " + solicitation.SolicitationId);
+
             _context.SaveChanges();
         }
     }
